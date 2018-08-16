@@ -443,9 +443,10 @@ class BucketOperations(CBASBaseTest):
         self.assertTrue(self.cbas_util.connect_link(), msg="Failed to connect to cbas bucket")
 
         self.log.info("Validate document count")
-        for index in range(self.num_of_dataset_per_cbas):
-            self.assertTrue(self.cbas_util.validate_cbas_dataset_items_count(
-                                bucket.name.replace("-", "_") + self.dataset_prefix + str(index), self.num_items))
+        for kv_bucket in kv_buckets:
+            for index in range(self.num_of_dataset_per_cbas):
+                self.assertTrue(self.cbas_util.validate_cbas_dataset_items_count(
+                                kv_bucket.name.replace("-", "_") + self.dataset_prefix + str(index), self.num_items))
                         
     def tearDown(self):
         super(BucketOperations, self).tearDown()
